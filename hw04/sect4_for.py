@@ -34,11 +34,7 @@ else:
 
 
 # 4. Generate a list every odd number less than 100. Hint: use range()
-newNums = []
-for x in range(0,100):
-    if (x%2!=0):
-        newNums.append(x)
-
+newNums = range(1,100,2)
 print "4.", newNums
 
 # 5. [ADVANCED]  Multiply each element in nums by its index

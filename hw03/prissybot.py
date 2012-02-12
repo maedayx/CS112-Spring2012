@@ -6,6 +6,7 @@ CS112 Homework 3:   PrissyBot
 
 Prissy bot, the rude chat bot, is just mean!  It does not listen, asks obnoxious questions, and says anything it likes.
 """
+import math
 
 name = raw_input("- What's your name, human?\n>>> ")
 print "- Hello there, %s" % name
@@ -53,7 +54,7 @@ addition = user1+user2+user3
 
 print "- {0} + {1} + {2} = {3}".format(user1, user2, user3, addition)
 
-sqrt = addition**.5
+sqrt = math.sqrt(addition)
 
 print "- The square root of {0} is {1}".format(addition, sqrt)
 
@@ -70,7 +71,7 @@ print "- ({0} + {1} + {2}) % {3} = {4}".format(user1,user2,user3,user4,mod)
 band=raw_input("- Tell me, human, what is your favorite band?\n>>> ")
 
 print "- Of course! {0}! The favored music of foul-smelling bumpkins the world over!".format(band)
-if failed == True:
+if failed:
     print "- That explains why you couldn't even figure out simple math like 2+2."
     
 print "- I'm sorry if I'm hurting your feelings, {0}. It's just rather hard to contain my dismay at the human race on occasion.".format(name)
