@@ -22,14 +22,11 @@ pygame.display.set_caption("Olympic Rings   [press ESC to quit]")
 ## Draw
 screen.fill(WHITE)
 
-#################################
-##  DRAW OLYPIC RINGS HERE
-##
-##  hint, lookup pygame.draw
-##  specifically circle, ellipse,
-##  and arc.  Also, the width
-##  parameter
-#################################
+pygame.draw.circle(screen, BLUE, (180,150), 100, 18)
+pygame.draw.circle(screen, BLACK, (400,150), 100, 18)
+pygame.draw.circle(screen, RED, (620,150), 100, 18)
+pygame.draw.circle(screen, YELLOW, (290,250), 100, 18)
+pygame.draw.circle(screen, GREEN, (510,250), 100, 18)
 
 
 ## Loop
