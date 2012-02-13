@@ -27,7 +27,7 @@ perTurn = getInt(start=0,end=stones,msg="What should the maximum number of stone
 
 while stones > 0:
     print "{0} stones left.".format(stones)
-    thisTurn = getInt(start=1,end=stones,msg='Player 1, how many stones would you like to take? [1 - {0}]'.format(stones))
+    thisTurn = getInt(start=1,end=stones,msg='Player 1, how many stones would you like to take? [1 - {0}]'.format(perTurn))
     stones -= thisTurn
     if stones == 0:
         print "No stones left!"
@@ -35,7 +35,7 @@ while stones > 0:
         break;
     
     print "{0} stones left.".format(stones)
-    thisTurn = getInt(start=1,end=stones,msg='Player 2, how many stones would you like to take? [1 - {0}]'.format(stones))
+    thisTurn = getInt(start=1,end=stones,msg='Player 2, how many stones would you like to take? [1 - {0}]'.format(perTurn))
     stones -= thisTurn
     if stones == 0:
         print "No stones left!"
