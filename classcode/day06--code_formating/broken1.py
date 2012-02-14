@@ -1,10 +1,22 @@
 #!/usr/bin/env python
-var1=0
-var2=[]
-var3=None
-while var3!="":
-    var3=raw_input()
-    var2.append(float(var3))
-for var in var2:
-    var1+=var
-print var1/len(var2)
+
+# Declare our variables.
+allNums = []
+numIn = None
+PROMPT = ">>> "
+
+# Get a list of numbers from user and append them to allNums as floats.
+while numIn != "":
+    print "Please enter a number or press [Return] to continue!"
+    numIn = raw_input(PROMPT)
+    if numIn.isdigit():
+        allNums.append(float(numIn))
+
+# Find the total of the list of numbers.
+total = 0
+for num in allNums:
+    total += num
+
+# Output average of list.
+print "The average of all of those is: "
+print total/len(allNums)
