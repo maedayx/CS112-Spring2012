@@ -8,7 +8,7 @@ print "-----------------------------"
 n = raw_input("Enter a number: ")
 n = int(n)
 
-if (n%2==0):
+if n%2==0:
     odd = False
     print "1. Even"
 else:
@@ -24,7 +24,7 @@ else:
 
 
 # 3. If n is evenly divisible by 3, add four
-if (n%3==0):
+if n%3==0:
     print "3.", n+4
 else:
     print "3. Not divisble by 3"
