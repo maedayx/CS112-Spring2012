@@ -9,8 +9,11 @@ import math
 #      >>> distance((0,0), (3,4))
 #      5
 
-# def distance(a, b):
-
+def distance(a, b):
+    x1minusx2 = b[0] - a[0]
+    y1minusy2 = b[1] - a[1]
+    d = math.sqrt((x1minusx2*x1minusx2) + (y1minusy2*y1minusy2))
+    return d
 
 # ADVANCED
 # Normalizing Vectors

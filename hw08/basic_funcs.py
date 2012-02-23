@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 # Create a greeter
 #    create a greeter that says hello to someone in all lower case.  Use print statements
 #
@@ -11,7 +11,9 @@
 #   >>> greeter("WORLD")
 #   hello, world
 
-# def greeter(name):
+def greeter(name):
+    name = str(name);
+    print "hello,", name.lower();
 
 
 # Draw a box
@@ -30,8 +32,54 @@
 #    | |
 #    +-+
 
-# def box(w,h):
+def box(w,h):
+    if w is '' or h is '':
+        print "Error: Invalid Dimensions"
+        return
+    
+    w = float(w)
+    h = float(h)
+    
+    if h%1 != 0 or w%1 != 0:
+        print "Error: Invalid Dimensions"
+        return
+    
+    if not h or not w:
+        print "Error: Invalid Dimensions"
+        return
+    if h <= 0 or w <= 0:
+        print "Error: Invalid Dimensions"
+        return
+        
+    w = int(w)
+    h = int(h)    
+    
+    if w > 2 and h > 1:
+        # Build top line
+        box = "+"
+        for x in range(w-2):
+            box += "-"
+        box += "+\n"
 
+        # Build middle section
+        for y in range(h-2):
+            box += "|"
+            for x in range(w-2):
+                box += " "
+            box += "|\n"
+
+        # Build bottom line
+        box += "+"
+        for x in range(w-2):
+            box += "-"
+        box += "+"
+    elif w == 2:
+        box = "++"
+    else:
+        box = "+"
+
+    print box
+    
 
 
 # ADVANCED
