@@ -11,12 +11,13 @@ from pygame import draw
 
 # Player class
 class Player:
-    def __init__(self, loc, xDir, color):
+    def __init__(self, loc, xDir, color, controls):
         self.x, self.y = loc
         self.xDir = xDir
         self.yDir = 0
         self.trail = []
         self.color = color
+        self.controls = controls
     def changeDir(self, x = 0, y = 0):
         self.xDir = x
         self.yDir = y
@@ -46,6 +47,14 @@ PLAYER_SIZE = 5
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 PLAYER1_START = SCREEN_WIDTH/4, SCREEN_HEIGHT/2
 PLAYER2_START = (SCREEN_WIDTH/4)+SCREEN_WIDTH/2, SCREEN_HEIGHT/2
+PLAYER1_CONTROLS = {'up' : K_UP,
+                    'down' : K_DOWN,
+                    'left' : K_LEFT,
+                    'right' : K_RIGHT}
+PLAYER2_CONTROLS = {'up' : K_w,
+                    'down' : K_s,
+                    'left' : K_a,
+                    'right' : K_d}
 
 # Initialization
 pygame.init()
@@ -55,7 +64,8 @@ screen = pygame.display.set_mode(SCREEN_SIZE)
 screen.fill((0,0,0))
 
 # Initliaze the players
-players = [Player(PLAYER1_START, 1, PLAYER1_COLOR), Player(PLAYER2_START, -1, PLAYER2_COLOR)]
+players = [ Player(PLAYER1_START, 1, PLAYER1_COLOR, PLAYER1_CONTROLS), 
+            Player(PLAYER2_START, -1, PLAYER2_COLOR, PLAYER2_CONTROLS)]
 
 
 # Set up some game control variables
@@ -86,59 +96,48 @@ while not done:
                 screen.fill((0,0,0)) # Clear the screen
                 winner = None # Reset game control variables
                 losers = []
-                players = [Player(PLAYER1_START, 1, PLAYER1_COLOR), Player(PLAYER2_START, -1, PLAYER2_COLOR)] # Reinitialize the players
+                players = [ Player(PLAYER1_START, 1, PLAYER1_COLOR, PLAYER1_CONTROLS), 
+                            Player(PLAYER2_START, -1, PLAYER2_COLOR, PLAYER2_CONTROLS)] # Reinitialize the players
                 # Draw the players in their starting spots
                 for player in players:
                     player.draw(screen)
-        
-        # Player 1 Movement
-        elif event.type == KEYDOWN and event.key == K_UP:
-            # Make sure you can't reverse direction
-            if players[0].yDir == 0:
-                players[0].changeDir(y = -1)
-        elif event.type == KEYDOWN and event.key == K_DOWN:
-            # Make sure you can't reverse direction
-            if players[0].yDir == 0:
-                players[0].changeDir(y = 1)
-        elif event.type == KEYDOWN and event.key == K_LEFT:
-            # Make sure you can't reverse direction
-            if players[0].xDir == 0:
-                players[0].changeDir(x = -1)
-        elif event.type == KEYDOWN and event.key == K_RIGHT:
-            # Make sure you can't reverse direction
-            if players[0].xDir == 0:
-                players[0].changeDir(x = 1)
-        
-        # Player 2 Movement
-        elif event.type == KEYDOWN and event.key == K_w:
-            # Make sure you can't reverse direction
-            if players[1].yDir == 0:
-                players[1].changeDir(y = -1)
-        elif event.type == KEYDOWN and event.key == K_s:
-            # Make sure you can't reverse direction
-            if players[1].yDir == 0:
-                players[1].changeDir(y = 1)
-        elif event.type == KEYDOWN and event.key == K_a:
-            # Make sure you can't reverse direction
-            if players[1].xDir == 0:
-                players[1].changeDir(x = -1)
-        elif event.type == KEYDOWN and event.key == K_d:
-            # Make sure you can't reverse direction
-            if players[1].xDir == 0:
-                players[1].changeDir(x = 1)
+        # Player movement
+        elif event.type == KEYDOWN:
+            for player in players:
+                if event.key == player.controls['up']:
+                    if player.yDir == 0:
+                        player.changeDir(y = -1)
+                if event.key == player.controls['down']:
+                    if player.yDir == 0:
+                       player.changeDir(y = 1)
+                if event.key == player.controls['left']:
+                    if player.xDir == 0:
+                        player.changeDir(x = -1)
+                if event.key == player.controls['right']:
+                    if player.xDir == 0:
+                        player.changeDir(x = 1)
     
     if playing:
         # Check for losing conditions
         for currPlayer in players:
             # Did the player go off the screen?
-            if currPlayer.x >= SCREEN_WIDTH or currPlayer.x <= 0 or currPlayer.y >= SCREEN_HEIGHT or currPlayer.y <= 0:
-                losers.append(currPlayer)
+            if currPlayer not in losers:
+                if currPlayer.x >= SCREEN_WIDTH or currPlayer.x <= 0 or currPlayer.y >= SCREEN_HEIGHT or currPlayer.y <= 0:
+                    losers.append(currPlayer)
             # Did anyone hit a trail?
             for checkPlayer in players:
-                if currPlayer.checkCollision((checkPlayer.x, checkPlayer.y)):
-                   losers.append(checkPlayer)
+                if checkPlayer not in losers:
+                    if currPlayer.checkCollision((checkPlayer.x, checkPlayer.y)):
+                        losers.append(checkPlayer)
             # Move the player and add to it's trail
-            currPlayer.update(screen)
+            if currPlayer not in losers:
+                currPlayer.update(screen)
+            # If it's lost, just draw it white
+            else:
+                #currPlayer.color = LOSER_COLOR
+                currPlayer.draw(screen)
+    
+    
     
     # If there's only one player left who's not a loser, stop the game, and mark that player as the winner
     if len(losers) == len(players)-1:
