@@ -9,6 +9,24 @@ import pygame
 from pygame.locals import *
 from pygame import draw
 
+class Player:
+    def __init__(self, loc, xDir):
+        self.x = loc[0]
+        self.y = loc[1]
+        self.xDir = xDir
+        self.yDir = 0
+        self.trail = []
+    def changeDir(self, x = 0, y = 0):
+        self.xDir = x
+        self.yDir = y
+    def move(self):
+        self.trail.append((self.x,self.y))
+        self.x += self.xDir
+        self.y += self.yDir
+    def draw(self, screen, color):
+        draw.rect(screen, color, (self.x, self.y, SIZE, SIZE))
+        
+
 # Function to draw a player
 def drawPlayer (pos, screen, color):
     x, y = pos
@@ -23,13 +41,22 @@ RED = 255,0,0
 BLUE = 0,0,255
 WHITE = 255,255,255
 GREEN = 0,255,0
+SIZE = 5
 
 # Set up player variables
 # player 1
-player1 = {'x':200, 'y':300, 'xDir':1, 'yDir':0}
+player1 = { 'x':200, 
+            'y':300, 
+            'xDir':1, 
+            'yDir':0}
+            
 player1Trail = []
 # player 2
-player2 = {'x':600, 'y':300, 'xDir':-1, 'yDir':0}
+player2 = { 'x':600, 
+            'y':300, 
+            'xDir':-1, 
+            'yDir':0}
+            
 player2Trail = []
 
 # Setup the screen
@@ -52,10 +79,19 @@ while not done:
                 playing = True
             else:
                 screen.fill((0,0,0))
-                player1 = {'x':200, 'y':300, 'xDir':1, 'yDir':0}
+                
+                player1 = { 'x':200, 
+                            'y':300, 
+                            'xDir':1, 
+                            'yDir':0}
                 player1Trail = []
-                player2 = {'x':600, 'y':300, 'xDir':-1, 'yDir':0}
+                
+                player2 = { 'x':600, 
+                            'y':300, 
+                            'xDir':-1, 
+                            'yDir':0}
                 player2Trail = []
+                
                 winner = None
         # Player 1 Movement
         elif event.type == KEYDOWN and event.key == K_UP:
@@ -144,6 +180,7 @@ while not done:
         playing = False
         winner = 1
     
+    # Draw the winning player in green and the losing player in red
     if winner == 1:
         drawPlayer((player1['x'],player1['y']), screen, GREEN)
         drawPlayer((player2['x'],player2['y']), screen, WHITE)
