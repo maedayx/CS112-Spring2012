@@ -9,6 +9,9 @@ from pygame.locals import *
 pygame.init()
 screen = pygame.display.set_mode((800,600))
 
+#class Player:
+    
+
 # Draw tie fighter function
 def tieFighter (pos, screen, color, height=40):
     x, y = pos
