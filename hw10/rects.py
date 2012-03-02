@@ -23,7 +23,7 @@ Terms:
 
   Rectangle:  pygame.Rect
 """
-
+import pygame
 from pygame import Rect
 
 # 1. poly_in_rect
@@ -34,7 +34,11 @@ from pygame import Rect
 
 def poly_in_rect(poly, rect):
     "check if polygon is within rectangle"
-
+    isInside = True
+    for point in poly:
+        if not rect.collidepoint(point):
+            isInside = False
+    return isInside
 
 
 # 2. surround_poly
@@ -46,5 +50,33 @@ def poly_in_rect(poly, rect):
 
 def surround_poly(poly):
     "create a rectangle which surounds a polygon"
-
-
+    xMin = xMax = yMin = yMax = None
+    # There's gotta be a better way to do this, but we're finding the minimum and maximum x and y dimensions of the polygon.
+    for point in poly:
+        if xMin == None:
+            xMin = point[0]
+        elif point[0] < xMin:
+            xMin = point[0]
+        
+        if xMax == None:
+            xMax = point[0]
+        elif point[0] > xMax:
+            xMax = point[0]
+        
+        if yMin == None:
+            yMin = point[1]
+        elif point[1] < yMin:
+            yMin = point[1]
+        
+        if yMax == None:
+            yMax = point[1]
+        elif point[1] > yMax:
+            yMax = point[1]
+            
+    if yMin < 0:
+        yMax += abs(yMin)+1
+    else:
+        yMax += yMin
+            
+    rect = pygame.Rect(xMin, yMin, xMax, yMax)      
+    return rect

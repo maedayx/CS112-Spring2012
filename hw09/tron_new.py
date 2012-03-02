@@ -11,10 +11,10 @@ from pygame import draw
 
 # Player class
 class Player:
-    def __init__(self, loc, xDir, color, controls):
+    def __init__(self, loc, xDir, yDir, color, controls):
         self.x, self.y = loc
         self.xDir = xDir
-        self.yDir = 0
+        self.yDir = yDir
         self.trail = []
         self.color = color
         self.controls = controls
@@ -64,8 +64,8 @@ screen = pygame.display.set_mode(SCREEN_SIZE)
 screen.fill((0,0,0))
 
 # Initliaze the players
-players = [ Player(PLAYER1_START, 1, PLAYER1_COLOR, PLAYER1_CONTROLS), 
-            Player(PLAYER2_START, -1, PLAYER2_COLOR, PLAYER2_CONTROLS)]
+players = [ Player(PLAYER1_START, 1, 0, PLAYER1_COLOR, PLAYER1_CONTROLS), 
+            Player(PLAYER2_START, -1, 0, PLAYER2_COLOR, PLAYER2_CONTROLS)]
 
 
 # Set up some game control variables
@@ -94,10 +94,11 @@ while not done:
             # Otherwise, reset the game
             else:
                 screen.fill((0,0,0)) # Clear the screen
-                winner = None # Reset game control variables
+                # Reset game control variables
+                winner = None
                 losers = []
-                players = [ Player(PLAYER1_START, 1, PLAYER1_COLOR, PLAYER1_CONTROLS), 
-                            Player(PLAYER2_START, -1, PLAYER2_COLOR, PLAYER2_CONTROLS)] # Reinitialize the players
+                players = [ Player(PLAYER1_START, 1, 0, PLAYER1_COLOR, PLAYER1_CONTROLS), 
+                            Player(PLAYER2_START, -1, 0, PLAYER2_COLOR, PLAYER2_CONTROLS)] # Reinitialize the players
                 # Draw the players in their starting spots
                 for player in players:
                     player.draw(screen)
@@ -132,9 +133,7 @@ while not done:
             # Move the player and add to it's trail
             if currPlayer not in losers:
                 currPlayer.update(screen)
-            # If it's lost, just draw it white
             else:
-                #currPlayer.color = LOSER_COLOR
                 currPlayer.draw(screen)
     
     

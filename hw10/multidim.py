@@ -6,6 +6,7 @@ Multidimensional Arrays
 =========================================================
 This section checks to make sure you can create, use, 
 search, and manipulate a multidimensional array.
+
 """
 
 
@@ -25,7 +26,12 @@ search, and manipulate a multidimensional array.
 #       [ [3, 0], [2, 1], [4, 2] ]
 #      
 def find_coins(room):
-    "returns a list of every coin in the room"
+    coins = []
+    for x,row in enumerate(room):
+        for y,loc in enumerate(row):
+            if loc == 1:
+                coins.append((y,x))
+    return coins
 
 
 # 2. distance_from_player
@@ -36,5 +42,15 @@ def find_coins(room):
 import math
 def distance_from_player(player_x, player_y, width, height):
     "calculates the distance of each square from the player"
-
-
+    xTerm = 0.0
+    yTerm = 0.0
+    dist = 0.0
+    room = [ [0 for i in range(width)] for i in range(height) ]
+    for x,row in enumerate(room):
+        for y,loc in enumerate(row):
+            xTerm = (x-player_x)**2
+            yTerm = (y-player_y)**2
+            dist = math.sqrt(xTerm + yTerm)
+            room[x][y] = dist
+    
+    return room
