@@ -31,6 +31,28 @@
 #    5
 #
 
+import math
+
+class Point(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def distance(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+    def move(self, x, y):
+        self.x = x
+        self.y = y
+    def translate(self, x, y):
+        self.x += x
+        self.y += y
+    def __str__(self):
+        return "Point (" + str(self.x) + ", " + str(self.y) + ")"
+    def __eq__(self, other):
+        if self.x == other.x and self.y == other.y:
+            return True
+        else:
+            return False
+
 
 # Advanced Section:
 # ---------------------------------------
