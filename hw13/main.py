@@ -26,7 +26,7 @@ BADGUY_COLOR = 255, 0, 255
 FASTGUY_COLOR = 255, 255, 0
 MADGUY_COLOR = 255, 0, 0
 PLAYER_COLOR = 0, 255, 0
-PLAYER_LIVES = 1
+PLAYER_LIVES = 3
 LOSE_LIFE_COLOR = 255, 0, 0
 BOTTOM = 400
 
@@ -232,6 +232,8 @@ class Game(Application):
         self.player.draw(screen)
         self.killed_text.draw(screen)
         self.lives_text.draw(screen)
+        if self.is_gameover:
+            self.do_gameover()
 
 if __name__ == "__main__":
     Game().run()

@@ -92,9 +92,6 @@ class Application(object):
             self.draw(self.screen)
             pygame.display.flip()
             
-        if self.is_gameover:
-            self.do_gameover()
-            
 
 
     def run(self):
